@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet weak var equationToSolveLabel: UILabel!
     
+    @IBOutlet var answerChoiceButtons: [UIButton]!
+    
     var maxNumberComputation = 10
     
     var computationName = "adding"
@@ -22,7 +24,7 @@ class ViewController: UIViewController {
     var firstNumberInEquation = 0
     var secondNumberInEquation = 0
     var thirdNumberInEquation = 0
-    var fourAnswerChoices: [Int] = [0,0,0,0]
+    var fourAnswerChoices = [Int]()
 
     // View Controller Functions
     override func viewDidLoad() {
@@ -68,6 +70,7 @@ class ViewController: UIViewController {
         createAnArrayWithFourAnswerChoices()
         
         // flip all labels and buttons
+        updateButtonsWithFourAnswerChoices()
         flipAllLabelsAndButtonsInGame()
     }
 
@@ -122,9 +125,212 @@ class ViewController: UIViewController {
         }
     }
     func createAnArrayWithFourAnswerChoices() {
+        if computationCodeInt == 0 {
+            // addition
+            let correctAnswer = thirdNumberInEquation
+            let firstTrapAnswer = thirdNumberInEquation + 1
+            let secondTrapAnswer = thirdNumberInEquation + 2
+            let thirdTrapAnswer = thirdNumberInEquation + 3
+            let fourthTrapAnswer = thirdNumberInEquation - 1
+            let fifthTrapAnswer = thirdNumberInEquation - 2
+            let sixthTrapAnswer = thirdNumberInEquation - 3
+            
+            var nonrandomizedArray = [Int]()
+            nonrandomizedArray.append(firstTrapAnswer)
+            nonrandomizedArray.append(secondTrapAnswer)
+            nonrandomizedArray.append(thirdTrapAnswer)
+            nonrandomizedArray.append(fourthTrapAnswer)
+            nonrandomizedArray.append(fifthTrapAnswer)
+            nonrandomizedArray.append(sixthTrapAnswer)
+            
+            print("\(nonrandomizedArray)")
+
+            var arrayOfNumbersToKeep = [Int]()
+            
+            for i in 0...nonrandomizedArray.count-1 {
+                if nonrandomizedArray[i] > 1 {
+                    arrayOfNumbersToKeep.append(nonrandomizedArray[i])
+                }
+            }
+            
+            print("\(arrayOfNumbersToKeep)")
+            
+            var randomizedArray = [Int]()
+
+            for _ in 1...3 {
+                let arrayCount = arrayOfNumbersToKeep.count
+                let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
+                randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
+                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+            }
+            
+            let randomPlacementNumber = Int(arc4random_uniform(3))
+            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            
+            fourAnswerChoices = randomizedArray
+
+            print("\(randomizedArray)")
+        }
         
+        else if computationCodeInt == 1 {
+            // subtraction
+            let correctAnswer = thirdNumberInEquation
+            let firstTrapAnswer = thirdNumberInEquation + 1
+            let secondTrapAnswer = thirdNumberInEquation + 2
+            let thirdTrapAnswer = thirdNumberInEquation + 3
+            let fourthTrapAnswer = thirdNumberInEquation - 1
+            let fifthTrapAnswer = thirdNumberInEquation - 2
+            let sixthTrapAnswer = thirdNumberInEquation - 3
+            
+            var nonrandomizedArray = [Int]()
+            nonrandomizedArray.append(firstTrapAnswer)
+            nonrandomizedArray.append(secondTrapAnswer)
+            nonrandomizedArray.append(thirdTrapAnswer)
+            nonrandomizedArray.append(fourthTrapAnswer)
+            nonrandomizedArray.append(fifthTrapAnswer)
+            nonrandomizedArray.append(sixthTrapAnswer)
+            
+            print("\(nonrandomizedArray)")
+            
+            var arrayOfNumbersToKeep = [Int]()
+            
+            for i in 0...nonrandomizedArray.count-1 {
+                if nonrandomizedArray[i] > 1 {
+                    arrayOfNumbersToKeep.append(nonrandomizedArray[i])
+                }
+            }
+            
+            print("\(arrayOfNumbersToKeep)")
+            
+            var randomizedArray = [Int]()
+            
+            for _ in 1...3 {
+                let arrayCount = arrayOfNumbersToKeep.count
+                let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
+                randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
+                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+            }
+            
+            let randomPlacementNumber = Int(arc4random_uniform(3))
+            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            
+            fourAnswerChoices = randomizedArray
+            
+            print("\(randomizedArray)")
+        }
+        
+        else if computationCodeInt == 2 {
+            // multiplication
+            let correctAnswer = thirdNumberInEquation
+            let firstTrapAnswer = thirdNumberInEquation + 1*(secondNumberInEquation)
+            let secondTrapAnswer = thirdNumberInEquation + 2*(secondNumberInEquation)
+            let thirdTrapAnswer = thirdNumberInEquation + 3*(secondNumberInEquation)
+            let fourthTrapAnswer = thirdNumberInEquation - 1*(secondNumberInEquation)
+            let fifthTrapAnswer = thirdNumberInEquation - 2*(secondNumberInEquation)
+            let sixthTrapAnswer = thirdNumberInEquation - 3*(secondNumberInEquation)
+            
+            var nonrandomizedArray = [Int]()
+            nonrandomizedArray.append(firstTrapAnswer)
+            nonrandomizedArray.append(secondTrapAnswer)
+            nonrandomizedArray.append(thirdTrapAnswer)
+            nonrandomizedArray.append(fourthTrapAnswer)
+            nonrandomizedArray.append(fifthTrapAnswer)
+            nonrandomizedArray.append(sixthTrapAnswer)
+            
+            print("\(nonrandomizedArray)")
+            
+            var arrayOfNumbersToKeep = [Int]()
+            
+            for i in 0...nonrandomizedArray.count-1 {
+                if nonrandomizedArray[i] > 1 {
+                    arrayOfNumbersToKeep.append(nonrandomizedArray[i])
+                }
+            }
+            
+            print("\(arrayOfNumbersToKeep)")
+            
+            var randomizedArray = [Int]()
+            
+            for _ in 1...3 {
+                let arrayCount = arrayOfNumbersToKeep.count
+                let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
+                randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
+                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+            }
+            
+            let randomPlacementNumber = Int(arc4random_uniform(3))
+            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            
+            fourAnswerChoices = randomizedArray
+
+            print("\(randomizedArray)")
+        }
+
+        else if computationCodeInt == 3 {
+            // division
+            let correctAnswer = thirdNumberInEquation
+            let firstTrapAnswer = thirdNumberInEquation + 1
+            let secondTrapAnswer = thirdNumberInEquation + 2
+            let thirdTrapAnswer = thirdNumberInEquation + 3
+            let fourthTrapAnswer = thirdNumberInEquation - 1
+            let fifthTrapAnswer = thirdNumberInEquation - 2
+            let sixthTrapAnswer = thirdNumberInEquation - 3
+            
+            var nonrandomizedArray = [Int]()
+            nonrandomizedArray.append(firstTrapAnswer)
+            nonrandomizedArray.append(secondTrapAnswer)
+            nonrandomizedArray.append(thirdTrapAnswer)
+            nonrandomizedArray.append(fourthTrapAnswer)
+            nonrandomizedArray.append(fifthTrapAnswer)
+            nonrandomizedArray.append(sixthTrapAnswer)
+            
+            print("\(nonrandomizedArray)")
+            
+            var arrayOfNumbersToKeep = [Int]()
+            
+            for i in 0...nonrandomizedArray.count-1 {
+                if nonrandomizedArray[i] > 1 {
+                    arrayOfNumbersToKeep.append(nonrandomizedArray[i])
+                }
+            }
+            
+            print("\(arrayOfNumbersToKeep)")
+            
+            var randomizedArray = [Int]()
+            
+            for _ in 1...3 {
+                let arrayCount = arrayOfNumbersToKeep.count
+                let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
+                randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
+                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+            }
+            
+            let randomPlacementNumber = Int(arc4random_uniform(3))
+            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            
+            fourAnswerChoices = randomizedArray
+            print("\(randomizedArray)")
+        }
+
     }
-
-
+    func updateButtonsWithFourAnswerChoices() {
+        for button in answerChoiceButtons {
+            if button.tag == 101 {
+                button.setTitle("yes", forState: .Normal)
+            }
+            
+            else if button.tag == 102 {
+                
+            }
+            
+            else if button.tag == 103 {
+                
+            }
+            
+            else if button.tag == 104 {
+                
+            }
+        }
+    }
 }
 

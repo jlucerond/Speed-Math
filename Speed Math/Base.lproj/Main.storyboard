@@ -103,6 +103,10 @@
                     <connections>
                         <outlet property="directionsLabel" destination="T3p-Bh-qsd" id="jXp-hd-oDQ"/>
                         <outlet property="equationToSolveLabel" destination="qJM-Et-wmJ" id="cGr-0k-y0r"/>
+                        <outletCollection property="answerChoiceButtons" destination="4yw-MH-Qh1" collectionClass="NSMutableArray" id="ZiB-2e-ewR"/>
+                        <outletCollection property="answerChoiceButtons" destination="Rjt-VR-X3U" collectionClass="NSMutableArray" id="O06-nA-vZ8"/>
+                        <outletCollection property="answerChoiceButtons" destination="kdu-li-y1p" collectionClass="NSMutableArray" id="V9O-yv-1DM"/>
+                        <outletCollection property="answerChoiceButtons" destination="qJE-iE-k7Q" collectionClass="NSMutableArray" id="KRr-if-8Ii"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

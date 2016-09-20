@@ -286,6 +286,7 @@
 				D80F95FA1D8B28B00067B0C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

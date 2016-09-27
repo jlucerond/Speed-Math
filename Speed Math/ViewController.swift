@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     var score = 0
     var highScore = 0
     
-    var timer = NSTimer()
+    var timer = Timer()
     var counter = 10.0
 
     // View Controller Functions
@@ -51,11 +51,11 @@ class ViewController: UIViewController {
     }
 
     // IBActions
-    @IBAction func sliderMoved(sender: UISlider) {
+    @IBAction func sliderMoved(_ sender: UISlider) {
         maxNumberComputation = Int(sender.value)
         updateDirectionsLabel()
     }
-    @IBAction func computationButtonSelected(sender: UISegmentedControl) {
+    @IBAction func computationButtonSelected(_ sender: UISegmentedControl) {
         computationCodeInt = sender.selectedSegmentIndex
         
         
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
         
         updateDirectionsLabel()
     }
-    @IBAction func startNewGameButtonPressed(sender: UIButton) {
+    @IBAction func startNewGameButtonPressed(_ sender: UIButton) {
         
         round = 1
         roundLabel.text = "\(round)"
@@ -90,9 +90,9 @@ class ViewController: UIViewController {
         flipAllLabelsAndButtonsInGame()
         
         counter = 10.0
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.timerShouldRun), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerShouldRun), userInfo: nil, repeats: true)
     }
-    @IBAction func answerChoiceButtonWasPressed (sender: UIButton) {
+    @IBAction func answerChoiceButtonWasPressed (_ sender: UIButton) {
         // check to see if answer is right
         let answerSelected = sender.titleLabel?.text
         
@@ -120,12 +120,12 @@ class ViewController: UIViewController {
     func flipAllLabelsAndButtonsInGame() {
         for largeTag in 99...104 {
             if let button = self.view.viewWithTag(largeTag) {
-                button.hidden = !button.hidden
+                button.isHidden = !button.isHidden
             }
         }
         
-        slider.enabled = !slider.enabled
-        computationSegments.enabled = !computationSegments.enabled
+        slider.isEnabled = !slider.isEnabled
+        computationSegments.isEnabled = !computationSegments.isEnabled
         
     }
     func createNewEquation () {
@@ -206,11 +206,11 @@ class ViewController: UIViewController {
                 let arrayCount = arrayOfNumbersToKeep.count
                 let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
                 randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
-                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+                arrayOfNumbersToKeep.remove(at: randomNumber)
             }
             
             let randomPlacementNumber = Int(arc4random_uniform(4))
-            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            randomizedArray.insert(correctAnswer, at: randomPlacementNumber)
             
             fourAnswerChoices = randomizedArray
 
@@ -253,11 +253,11 @@ class ViewController: UIViewController {
                 let arrayCount = arrayOfNumbersToKeep.count
                 let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
                 randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
-                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+                arrayOfNumbersToKeep.remove(at: randomNumber)
             }
             
             let randomPlacementNumber = Int(arc4random_uniform(4))
-            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            randomizedArray.insert(correctAnswer, at: randomPlacementNumber)
             
             fourAnswerChoices = randomizedArray
             
@@ -300,11 +300,11 @@ class ViewController: UIViewController {
                 let arrayCount = arrayOfNumbersToKeep.count
                 let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
                 randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
-                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+                arrayOfNumbersToKeep.remove(at: randomNumber)
             }
             
             let randomPlacementNumber = Int(arc4random_uniform(4))
-            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            randomizedArray.insert(correctAnswer, at: randomPlacementNumber)
             
             fourAnswerChoices = randomizedArray
 
@@ -347,11 +347,11 @@ class ViewController: UIViewController {
                 let arrayCount = arrayOfNumbersToKeep.count
                 let randomNumber = Int(arc4random_uniform(UInt32(arrayCount)))
                 randomizedArray.append(arrayOfNumbersToKeep[randomNumber])
-                arrayOfNumbersToKeep.removeAtIndex(randomNumber)
+                arrayOfNumbersToKeep.remove(at: randomNumber)
             }
             
             let randomPlacementNumber = Int(arc4random_uniform(4))
-            randomizedArray.insert(correctAnswer, atIndex: randomPlacementNumber)
+            randomizedArray.insert(correctAnswer, at: randomPlacementNumber)
             
             fourAnswerChoices = randomizedArray
             print("\(randomizedArray)")
@@ -362,22 +362,22 @@ class ViewController: UIViewController {
         for button in answerChoiceButtons {
             if button.tag == 101 {
                 let answerChoiceOne = fourAnswerChoices[0]
-                button.setTitle("\(answerChoiceOne)", forState: .Normal)
+                button.setTitle("\(answerChoiceOne)", for: UIControlState())
             }
             
             else if button.tag == 102 {
                 let answerChoiceTwo = fourAnswerChoices[1]
-                button.setTitle("\(answerChoiceTwo)", forState: .Normal)
+                button.setTitle("\(answerChoiceTwo)", for: UIControlState())
             }
             
             else if button.tag == 103 {
                 let answerChoiceThree = fourAnswerChoices[2]
-                button.setTitle("\(answerChoiceThree)", forState: .Normal)
+                button.setTitle("\(answerChoiceThree)", for: UIControlState())
             }
             
             else if button.tag == 104 {
                 let answerChoiceFour = fourAnswerChoices[3]
-                button.setTitle("\(answerChoiceFour)", forState: .Normal)
+                button.setTitle("\(answerChoiceFour)", for: UIControlState())
             }
         }
     }
@@ -385,7 +385,7 @@ class ViewController: UIViewController {
         // update the time
         timer.invalidate()
         counter = 10.0 - Double(round)/10
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.timerShouldRun), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerShouldRun), userInfo: nil, repeats: true)
         
         // update the round
         round += 1
@@ -406,10 +406,10 @@ class ViewController: UIViewController {
     func answeredTheQuestionWrong() {
         timer.invalidate()
         
-        let alert = UIAlertController(title: "Incorrect", message: "\(firstNumberInEquation) \(computationSymbol) \(secondNumberInEquation) = \(thirdNumberInEquation)", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "ok", style: .Default, handler: {action in self.flipAllLabelsAndButtonsInGame()})
+        let alert = UIAlertController(title: "Incorrect", message: "\(firstNumberInEquation) \(computationSymbol) \(secondNumberInEquation) = \(thirdNumberInEquation)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "ok", style: .default, handler: {action in self.flipAllLabelsAndButtonsInGame()})
         alert.addAction(action)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     func timerShouldRun() {
         counter -= 0.1
@@ -417,10 +417,10 @@ class ViewController: UIViewController {
         if counter <= 0 {
             timer.invalidate()
             
-            let alert = UIAlertController(title: "Time's Up!", message: "\(firstNumberInEquation) \(computationSymbol) \(secondNumberInEquation) = \(thirdNumberInEquation)", preferredStyle: .Alert)
-            let action = UIAlertAction(title: "ok", style: .Default, handler: {action in self.flipAllLabelsAndButtonsInGame()})
+            let alert = UIAlertController(title: "Time's Up!", message: "\(firstNumberInEquation) \(computationSymbol) \(secondNumberInEquation) = \(thirdNumberInEquation)", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ok", style: .default, handler: {action in self.flipAllLabelsAndButtonsInGame()})
             alert.addAction(action)
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
             
         }
         else {

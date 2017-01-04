@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet weak var equationToSolveLabel: UILabel!
     @IBOutlet var answerChoiceButtons: [UIButton]!
@@ -20,7 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var highScoreLabel: UILabel!
     
-    
+    // MARK: - Variables
     var maxNumberComputation = 10
     
     var computationName = "adding"
@@ -39,9 +40,10 @@ class ViewController: UIViewController {
     var timer = Timer()
     var counter = 10.0
 
-    // View Controller Functions
+    // MARK: - View Controller Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadHighScore()
         
 //        I'd eventually like to come back and fix this. I need to learn how to resize UIImages
 //        let thumbnailImage = UIImage(named: "addition")
@@ -50,7 +52,7 @@ class ViewController: UIViewController {
         updateDirectionsLabel()
     }
 
-    // IBActions
+    // MARK: - IBActions
     @IBAction func sliderMoved(_ sender: UISlider) {
         maxNumberComputation = Int(sender.value)
         updateDirectionsLabel()
@@ -111,7 +113,7 @@ class ViewController: UIViewController {
         }
     }
 
-    // Custom Functions
+    // MARK: - Custom Functions
     func updateDirectionsLabel () {
 
         
@@ -399,6 +401,9 @@ class ViewController: UIViewController {
         if score > highScore {
             highScore = score
             highScoreLabel.text = "\(highScore)"
+            
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(highScore, forKey: "HighScore")
         }
         
         createNewEquation()
@@ -426,6 +431,38 @@ class ViewController: UIViewController {
         else {
             timeLabel.text = String(format: "%.1f", counter)
         }
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    func loadHighScore() {
+        let userDefaults = UserDefaults.standard
+        highScore = userDefaults.integer(forKey: "HighScore")
+        highScoreLabel.text = String(highScore)
     }
     
 }
